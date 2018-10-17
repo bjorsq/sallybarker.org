@@ -8,12 +8,8 @@
 if ( ! class_exists( 'SB_Post_Types' ) ) {
 
 	/**
-	 * class creates two custom post types for the theme
-	 * - Art
-	 * - Education
-	 * @version 1.0
+	 * Class creates two custom post types for the theme: Art and Education
 	 */
-
 	class SB_Post_Types
 	{
 		/**
@@ -23,9 +19,9 @@ if ( ! class_exists( 'SB_Post_Types' ) ) {
 			/* register custom post types and taxonomies */
 			add_action( 'init', array( $this, 'register_post_types' ) );
 			/* add filter to update messages */ 
-			add_filter( 'post_updated_messages', array('sb_post_types', 'updated_messages' ) );
+			add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
 			/* add filter to put items in order on category archive pages */
-			add_action( 'pre_get_posts', array('sb_post_types', 'put_in_menu_order'), 1 );
+			add_action( 'pre_get_posts', array( $this, 'put_in_menu_order' ), 1 );
 		}
 
 		/**
@@ -124,7 +120,7 @@ if ( ! class_exists( 'SB_Post_Types' ) ) {
 		/**
 		 * updates all update messages for custom post types
 		 */
-		public static function updated_messages( $messages ) {
+		public function updated_messages( $messages ) {
 			global $post, $post_ID;
 			$messages["art"] = $messages["education"] = array(
 				0 => '', // Unused. Messages start at index 1.
@@ -145,7 +141,7 @@ if ( ! class_exists( 'SB_Post_Types' ) ) {
 		/**
 		 * puts posts in menu order on category archive pages
 		 */
-		function put_in_menu_order( $query ) 
+		public function put_in_menu_order( $query ) 
 		{
 			if ( 0 && ! is_admin() && is_main_query() && ( is_tax('education_category') || is_tax('art_category') ) ) {
 				$query->query_vars['orderby'] = 'menu_order';
