@@ -4,3 +4,23 @@
 .home h2.entry-title {
 	display:none;
 }
+img.header-image {
+	opacity: 0.6;
+}
+a:hover img.header-image {
+	opacity:1;
+}
+.flexbin a {
+	position:relative;
+	display:block;
+	span.caption {
+		position:absolute;
+		left:0;
+		right:0;
+		bottom:0;
+		padding:.5em;
+		color:#fff;
+		background: #000;
+		background: rgba(0,0,0,0.5);
+	}
+}

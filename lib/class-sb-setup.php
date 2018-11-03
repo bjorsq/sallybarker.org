@@ -17,7 +17,7 @@ if ( ! class_exists( 'SB_Setup' ) ) {
 		 * @var string $version - number followin semver standard
 		 * @see https://semver.org/
 		 */
-		private static $version = '0.1.0';
+		private static $version = '0.1.1';
 
 		/**
 		 * Method to return current version of theme
@@ -32,17 +32,8 @@ if ( ! class_exists( 'SB_Setup' ) ) {
 		public function __construct() {
 			/* run any upgrade routines */
 			add_action( 'init', array( $this, 'upgrade' ) );
-			/* filter archive titles */
-			add_filter( 'get_the_archive_title', array( $this, 'get_archive_title' ) );
 		}
 
-		function get_archive_title( $title ) {
-			if ( is_tax( 'education_category' ) || is_tax( 'art_category' ) ) {
-				$title = single_term_title( '', false );
-			}
-			return $title;
-		}
-		
 		/**
 		 * Upgrade function called when the stored version number is
 		 * different to the plugin version identified in this file
@@ -53,7 +44,7 @@ if ( ! class_exists( 'SB_Setup' ) ) {
 			if ( self::version() !== $current_version ) {
 				switch ( $current_version ) {
 					case false:
-						/* upgrade */
+						/* Initial upgrade */
 						$pages = get_posts( array(
 							'post_type'   => array( 'art', 'education' ),
 							'post_status' => 'publish',
@@ -79,6 +70,32 @@ if ( ! class_exists( 'SB_Setup' ) ) {
 								}
 							}
 						}
+						break;
+					case '0.1.0':
+						/* Upgrade to use "employment" instead of "education" */
+						global $wpdb;
+						$wpdb->update(
+							$wpdb->posts,
+							array(
+								'post_type' => 'employment',
+							),
+							array(
+								'post_type' => 'education',
+							),
+							array( '%s' ),
+							array( '%s' )
+						);
+						$wpdb->update(
+							$wpdb->term_taxonomy,
+							array(
+								'taxonomy' => 'employment_category',
+							),
+							array(
+								'taxonomy' => 'education_category',
+							),
+							array( '%s' ),
+							array( '%s' )
+						);
 						break;
 				}
 			}

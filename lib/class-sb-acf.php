@@ -25,64 +25,54 @@ if ( ! class_exists( 'SB_ACF' ) ) {
 		 */
 		public function register_page_fields() {
 			acf_add_local_field_group(array(
-				'key' => 'group_sb_page_gallery',
-				'title' => 'Image gallery',
-				'fields' => array(
+				'key'                   => 'group_sb_page_gallery',
+				'title'                 => 'Image gallery',
+				'fields'                => array(
 					array(
-						'key' => 'field_sb_page_gallery_images',
-						'label' => 'Images',
-						'name' => 'page_images',
-						'type' => 'gallery',
-						'insert' => 'append',
+						'key'     => 'field_sb_page_gallery_images',
+						'label'   => 'Images',
+						'name'    => 'page_images',
+						'type'    => 'gallery',
+						'insert'  => 'append',
 						'library' => 'all',
 					),
 				),
-				'location' => array(
+				'location'              => array(
 					array(
 						array(
-							'param' => 'post_type',
+							'param'    => 'post_type',
 							'operator' => '==',
-							'value' => 'page',
+							'value'    => 'page',
 						),
 						array(
-							'param' => 'page_template',
+							'param'    => 'page_template',
 							'operator' => '!=',
-							'value' => 'home_page.php',
+							'value'    => 'home_page.php',
 						),
 					),
 					array(
 						array(
-							'param' => 'post_type',
+							'param'    => 'post_type',
 							'operator' => '==',
-							'value' => 'education',
-						),
-						array(
-							'param' => 'page_template',
-							'operator' => '!=',
-							'value' => 'home_page.php',
+							'value'    => 'education',
 						),
 					),
 					array(
 						array(
-							'param' => 'post_type',
+							'param'    => 'post_type',
 							'operator' => '==',
-							'value' => 'art',
-						),
-						array(
-							'param' => 'page_template',
-							'operator' => '!=',
-							'value' => 'home_page.php',
+							'value'    => 'art',
 						),
 					),
 				),
-				'menu_order' => 0,
-				'position' => 'acf_after_title',
-				'style' => 'seamless',
-				'label_placement' => 'top',
+				'menu_order'            => 0,
+				'position'              => 'acf_after_title',
+				'style'                 => 'seamless',
+				'label_placement'       => 'top',
 				'instruction_placement' => 'label',
-				'hide_on_screen' => '',
-				'active' => 1,
-				'description' => '',
+				'hide_on_screen'        => '',
+				'active'                => 1,
+				'description'           => '',
 			));
 		}
 
@@ -91,62 +81,62 @@ if ( ! class_exists( 'SB_ACF' ) ) {
 		 */
 		public function register_home_page_fields() {
 			acf_add_local_field_group( array(
-				'key' => 'group_sb_home_gallery',
-				'title' => 'Linked Images',
-				'fields' => array(
+				'key'                   => 'group_sb_home_gallery',
+				'title'                 => 'Linked Images',
+				'fields'                => array(
 					array(
-						'key' => 'field_sb_home_gallery_images',
-						'label' => 'Images',
-						'name' => 'linked_images',
-						'type' => 'repeater',
-						'collapsed' => 'field_sb_home_gallery_image',
-						'layout' => 'row',
+						'key'          => 'field_sb_home_gallery_images',
+						'label'        => 'Images',
+						'name'         => 'linked_images',
+						'type'         => 'repeater',
+						'collapsed'    => 'field_sb_home_gallery_image',
+						'layout'       => 'row',
 						'button_label' => 'Add image',
-						'sub_fields' => array(
+						'sub_fields'   => array(
 							array(
-								'key' => 'field_sb_home_gallery_image',
-								'label' => 'Image',
-								'name' => 'image',
-								'type' => 'image',
-								'required' => 1,
+								'key'           => 'field_sb_home_gallery_image',
+								'label'         => 'Image',
+								'name'          => 'image',
+								'type'          => 'image',
+								'required'      => 1,
 								'return_format' => 'array',
-								'preview_size' => 'medium',
-								'library' => 'all',
+								'preview_size'  => 'medium',
+								'library'       => 'all',
 							),
 							array(
-								'key' => 'field_sb_home_gallery_caption',
+								'key'   => 'field_sb_home_gallery_caption',
 								'label' => 'Caption',
-								'name' => 'caption',
-								'type' => 'text',
+								'name'  => 'caption',
+								'type'  => 'text',
 							),
 							array(
-								'key' => 'field_sb_home_gallery_link',
-								'label' => 'Link',
-								'name' => 'link',
-								'type' => 'post_object',
+								'key'           => 'field_sb_home_gallery_link',
+								'label'         => 'Link',
+								'name'          => 'link',
+								'type'          => 'post_object',
 								'return_format' => 'url',
-								'ui' => 1,
+								'ui'            => 1,
 							),
 						),
 					),
 				),
-				'location' => array(
+				'location'              => array(
 					array(
 						array(
-							'param' => 'page_template',
+							'param'    => 'page_template',
 							'operator' => '==',
-							'value' => 'home_page.php',
+							'value'    => 'home_page.php',
 						),
 					),
 				),
-				'menu_order' => 0,
-				'position' => 'acf_after_title',
-				'style' => 'seamless',
-				'label_placement' => 'top',
+				'menu_order'            => 0,
+				'position'              => 'acf_after_title',
+				'style'                 => 'seamless',
+				'label_placement'       => 'top',
 				'instruction_placement' => 'label',
-				'hide_on_screen' => '',
-				'active' => 1,
-				'description' => '',
+				'hide_on_screen'        => '',
+				'active'                => 1,
+				'description'           => '',
 			));
 		}
 	}

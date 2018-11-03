@@ -1,9 +1,3 @@
-#masthead {
-  display: none; }
-
-.home h2.entry-title {
-  display: none; }
-
 .flexbin {
   display: flex;
   overflow: hidden;
@@ -12,16 +6,16 @@
   .flexbin:after {
     content: '';
     flex-grow: 999999999;
-    min-width: 200px;
+    min-width: 300px;
     height: 0; }
   .flexbin > * {
     position: relative;
     display: block;
-    height: 200px;
+    height: 300px;
     margin: 2.5px;
     flex-grow: 1; }
     .flexbin > * > img {
-      height: 200px;
+      height: 300px;
       object-fit: cover;
       max-width: 100%;
       min-width: 100%;
@@ -29,6 +23,31 @@
   .flexbin.flexbin-margin {
     margin: 2.5px; }
   @media (max-width: 980px) {
+    .flexbin {
+      display: flex;
+      overflow: hidden;
+      flex-wrap: wrap;
+      margin: -2.5px; }
+      .flexbin:after {
+        content: '';
+        flex-grow: 999999999;
+        min-width: 225px;
+        height: 0; }
+      .flexbin > * {
+        position: relative;
+        display: block;
+        height: 225px;
+        margin: 2.5px;
+        flex-grow: 1; }
+        .flexbin > * > img {
+          height: 225px;
+          object-fit: cover;
+          max-width: 100%;
+          min-width: 100%;
+          vertical-align: bottom; }
+      .flexbin.flexbin-margin {
+        margin: 2.5px; } }
+  @media (max-width: 400px) {
     .flexbin {
       display: flex;
       overflow: hidden;
@@ -53,28 +72,28 @@
           vertical-align: bottom; }
       .flexbin.flexbin-margin {
         margin: 2.5px; } }
-  @media (max-width: 400px) {
-    .flexbin {
-      display: flex;
-      overflow: hidden;
-      flex-wrap: wrap;
-      margin: -2.5px; }
-      .flexbin:after {
-        content: '';
-        flex-grow: 999999999;
-        min-width: 100px;
-        height: 0; }
-      .flexbin > * {
-        position: relative;
-        display: block;
-        height: 100px;
-        margin: 2.5px;
-        flex-grow: 1; }
-        .flexbin > * > img {
-          height: 100px;
-          object-fit: cover;
-          max-width: 100%;
-          min-width: 100%;
-          vertical-align: bottom; }
-      .flexbin.flexbin-margin {
-        margin: 2.5px; } }
+
+#masthead {
+  display: none; }
+
+.home h2.entry-title {
+  display: none; }
+
+img.header-image {
+  opacity: 0.6; }
+
+a:hover img.header-image {
+  opacity: 1; }
+
+.flexbin a {
+  position: relative;
+  display: block; }
+  .flexbin a span.caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: .5em;
+    color: #fff;
+    background: #000;
+    background: rgba(0, 0, 0, 0.5); }

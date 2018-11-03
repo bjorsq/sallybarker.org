@@ -29,43 +29,44 @@ if ( ! class_exists( 'SB_Actions' ) ) {
 		 */
 		public function display_gallery() {
 			global $post;
-			if ( is_single() ) {
-				if ( is_page_template( 'home_page.php' ) ) {
-					if ( have_rows( 'linked_images' ) ) {
-						print( '<div class="flexbin">' );
-						while ( have_rows( 'linked_images' ) ) {
-							the_row();
-							$image = get_sub_field( 'image' );
-							$caption = get_sub_field( 'caption' );
-							$caption = $caption ? sprintf( '<span class="caption">%s</span>', esc_html( $caption ) ) : '';
-							$url = get_sub_field( 'link' );
-							$url = $url ? $url : esc_attr( $image['sizes']['large'] );
-							printf( '<a href="%s"><img src="%s">%s</a>', $url, esc_attr( $image['sizes']['medium'] ), $caption );
-						}
-						print( '</div>' );
+			if ( is_page_template( 'home_page.php' ) ) {
+				if ( have_rows( 'linked_images' ) ) {
+					print( '<div class="flexbin">' );
+					while ( have_rows( 'linked_images' ) ) {
+						the_row();
+						$image = get_sub_field( 'image' );
+						$caption = get_sub_field( 'caption' );
+						$caption = $caption ? sprintf( '<span class="caption">%s</span>', $caption ) : '';
+						$page_id = get_sub_field( 'link' );
+						$url = $page_id ? get_permalink( $page_id ) : esc_attr( $image['sizes']['large'] );
+						printf( '<a href="%s"><img src="%s">%s</a>', esc_url( $url ), esc_attr( $image['sizes']['medium'] ), $caption );
 					}
-				} else {
-					$images = get_field( 'page_images', $post->ID );
-					if ( $images ) {
-						print( '<div class="flexbin">' );
-						foreach ( $images as $image ) {
-							$caption = ( ! empty( $image['caption'] ) ) ? sprintf( '<span class="caption">%s</span>', esc_html( $image['caption'] ) ) : '';
-							printf( '<a href="%s"><img src="%s">%s</a>', esc_attr( $image['sizes']['large'] ), esc_attr( $image['sizes']['medium'] ), $caption );
-						}
-						print( '</div>' );
+					print( '</div>' );
+				}
+			} elseif ( is_singular() ) {
+				$images = get_field( 'page_images', $post->ID );
+				if ( $images ) {
+					print( '<div class="flexbin">' );
+					foreach ( $images as $image ) {
+						$caption = ( ! empty( $image['caption'] ) ) ? sprintf( '<span class="caption">%s</span>', $image['caption'] ) : '';
+						printf( '<a href="%s"><img src="%s">%s</a>', esc_attr( $image['sizes']['large'] ), esc_attr( $image['sizes']['medium'] ), $caption );
 					}
+					print( '</div>' );
 				}
 			}
 		}
 
 		/**
-		 * modifies output for post type archive and taxonomy archive titles
+		 * Modifies output for post type archive and taxonomy archive titles
+		 *
+		 * @param string $title to be filtered
+		 * @return string $title filtered
 		 */
-		function get_archive_title( $title ) {
-			if ( is_tax( 'education_category' ) || is_tax( 'art_category' ) ) {
+		public function get_archive_title( $title ) {
+			if ( is_tax( 'employment_category' ) || is_tax( 'art_category' ) ) {
 				$title = single_term_title( '', false );
 			}
-			if ( is_post_type_archive( 'art' ) || is_post_type_archive( 'education' ) ) {
+			if ( is_post_type_archive( 'art' ) || is_post_type_archive( 'employment' ) ) {
 				$title = ucfirst( get_post_type() );
 			}
 			return $title;
